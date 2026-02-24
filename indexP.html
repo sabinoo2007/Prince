@@ -33,26 +33,47 @@ One day in the attic, you find your old toy airplane. Your fingers brush the chi
   </div>
 </div>
 
+<audio id="bg-music" loop style="display: none;">
+    <source src="Hans_Zimmer_Richard_Harvey_-_Ascending_(SkySound.cc).mp3" type="audio/mpeg">
+</audio>
 
 <script>
 (function() {
-  var TRACK = 'Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep__SkySound_cc_.mp3';
-  var GROUP = 'draw';
-  var audio = document.createElement('audio');
-  audio.src = TRACK;
-  audio.loop = true;
-  audio.volume = 0.5;
-  var savedGroup = sessionStorage.getItem('audioGroup');
-  var savedTime  = parseFloat(sessionStorage.getItem('audioTime') || '0');
-  if (savedGroup === GROUP && savedTime > 0) audio.currentTime = savedTime;
-  setInterval(function() {
-    sessionStorage.setItem('audioGroup', GROUP);
-    sessionStorage.setItem('audioTime', audio.currentTime);
-  }, 500);
-  var play = function() { audio.play().catch(function(){}); };
-  play();
-  document.addEventListener('click', play, { once: true });
+    const audio = document.getElementById('bg-music');
+    const GROUP = 'draw';
+    
+    // Set initial volume
+    audio.volume = 0.5;
+
+    // Persistent playback logic: remember where the song was
+    const savedGroup = sessionStorage.getItem('audioGroup');
+    const savedTime = parseFloat(sessionStorage.getItem('audioTime') || '0');
+
+    if (savedGroup === GROUP && savedTime > 0) {
+        audio.currentTime = savedTime;
+    }
+
+    // Save progress every half-second
+    setInterval(function() {
+        if (!audio.paused) {
+            sessionStorage.setItem('audioGroup', GROUP);
+            sessionStorage.setItem('audioTime', audio.currentTime);
+        }
+    }, 500);
+
+    // Function to start playback
+    const startMusic = () => {
+        audio.play().catch(err => console.log("Playback waiting for interaction..."));
+    };
+
+    // Attempt autoplay immediately
+    startMusic();
+
+    // Force start on the very first click (to bypass browser blocks)
+    document.addEventListener('click', startMusic, { once: true });
 })();
 </script>
+
 </body>
 </html>
+

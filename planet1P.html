@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet I: The King — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #round1 { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── ROUND 1: First etiquette question ── -->
+<section class="scene bg-king" id="round1">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div><div class="shoot"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot cosmos"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+      <div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag">Planet I · The Sin of Pride</p>
+    <h2 class="cosmos-title">The King</h2>
+
+     <img src="ScreenRecording_02-18-2026 13-14-47_1.gif" width="400" alt="Cosmos">
+    
+    <p class="narration" style="color:var(--pale-blue);">You arrive on a tiny planet where a magnificent throne stands. The King, with a long robe and sparkling crown, sits alone. His eyes scan you carefully. He raises a hand and declares:</p>
+    <div class="cosmos-quote">"I rule everything. Even you. Even the stars — I order them when to rise."</div>
+    <p class="narration" style="color:var(--pale-blue);">To pass, you must choose the correct royal gesture. Choose wisely:</p>
+    <div class="choices">
+      <a href="#loss-king"  class="btn btn-cosmos">A) Tell him he's wrong — kings rule nothing real.</a>
+      <a href="#loss-king"  class="btn btn-cosmos">B) Demand to be treated as an equal.</a>
+      <a href="#round2"     class="btn btn-cosmos">C) Bow — then ask: "What do you wish of me, Majesty?"</a>
+      <a href="#loss-king"  class="btn btn-cosmos">D) Ignore him and explore the planet alone.</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── ROUND 2: Second etiquette question ── -->
+<section class="scene bg-king" id="round2">
+  <div class="stars-layer"><div class="shoot"></div><div class="shoot"></div></div>
+  <div class="inner">
+    <p class="planet-tag">Planet I · The King · Round 2</p>
+    <h2 class="cosmos-title" style="font-size:clamp(1.3rem,3vw,2.2rem);">He Studies You</h2>
+    <div class="cosmos-quote">"A good king orders only the reasonable. Tell me — should I command the sun to set at midnight?"</div>
+    <div class="choices">
+      <a href="#loss-king"  class="btn btn-cosmos">A) Yes — you are king, anything is possible.</a>
+      <a href="planet2P.html" class="btn btn-cosmos">B) "Majesty, a wise king waits until the sun is ready — and orders what will naturally occur."</a>
+      <a href="#loss-king"  class="btn btn-cosmos">C) "No king has real power over nature."</a>
+    </div>
+    <p style="color:rgba(200,216,255,.5);font-style:italic;font-size:.85rem;margin-top:8px;">Hint: Humility is not weakness. It is precision.</p>
+  </div>
+</section>
+
+<!-- ── LOSS: Pride wins ── -->
+<section class="scene bg-loss" id="loss-king">
+  <div class="inner">
+    <span class="icon-big">👑</span>
+    <p class="loss-banner">❌ Pride Wins</p>
+    <p class="narration">The King banished you. You forgot: true humility is not submission — it is knowing when to yield without losing yourself. You did not show you understood the difference between form and wisdom.</p>
+    <div class="loss-quote">"If I ordered a general to fly from flower to flower, and the general did not obey, which of us would be at fault?"</div>
+    <a href="#round1" class="btn-retry">↺ Try Again — The King's Planet</a>
+  </div>
+</section>
+
+
+
+<!-- ── MUSIC PLAYER ── -->
+<div class="music-section">
+  <p class="music-label">🎶 Hans Zimmer · Draw Me A Sheep 🎶</p>
+  <audio id="site-audio" controls autoplay loop>
+    <source src="Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep_(SkySound.cc).mp3" type="audio/mpeg">
+  </audio>
+</div>
+<style>
+.music-section{position:fixed;bottom:20px;right:20px;z-index:9999;text-align:center;padding:10px 16px 12px;background:rgba(10,6,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.35);}
+.music-label{margin:0 0 8px 0;font-size:10px;letter-spacing:.1em;color:rgba(255,220,120,.6);font-family:inherit;}
+#site-audio{display:block;width:200px;height:32px;filter:invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(.75);opacity:.85;}
+</style>
+<script>
+(function(){
+  var audio=document.getElementById("site-audio");
+  var GROUP="sheep";
+  audio.volume=0.5;
+  var sg=sessionStorage.getItem("audioGroup");
+  var st=parseFloat(sessionStorage.getItem("audioTime")||"0");
+  if(sg===GROUP&&st>0)audio.currentTime=st;
+  setInterval(function(){if(!audio.paused){sessionStorage.setItem("audioGroup",GROUP);sessionStorage.setItem("audioTime",audio.currentTime);}},500);
+  audio.play().catch(function(){});
+  document.addEventListener("click",function(){audio.play().catch(function(){});},{once:true});
+})();
+</script>
+</body>
+</html>

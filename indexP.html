@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Seventh Planet: A Trial of the Heart</title>
+<link rel="stylesheet" href="sharedP.css">
+
+</head>
+<body>
+
+
+<div class="page bg-warm" id="title">
+  <div class="petals">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div>
+  </div>
+
+  <div class="orb" style="width:300px;height:300px;background:radial-gradient(circle,rgba(244,200,66,.12),transparent 70%);top:-80px;left:-100px;animation-duration:9s;"></div>
+  <div class="orb" style="width:200px;height:200px;background:radial-gradient(circle,rgba(232,151,58,.1),transparent 70%);bottom:0;right:-60px;animation-duration:11s;animation-delay:2s;"></div>
+
+  <div class="inner">
+
+    <p class="planet-tag">Antoine de Saint-Exupéry · An Interactive Journey</p>
+    <h1 class="game-title">The Seventh<br>Planet</h1>
+    <p class="subtitle">✦ A Trial of the Heart ✦</p>
+    <div class="divider"></div>
+     <img src="ScreenRecording_02-18-2026 13-04-51_1.gif" width="400" alt="Cosmos">
+    <p class="narration">For years, you were a ghost in your own life, buried under “important” paperwork and the grey fatigue of being a grown-up.
+One day in the attic, you find your old toy airplane. Your fingers brush the chipped paint, and something bright and long-forgotten stirs inside you. The room softens, and suddenly — the world tilts.<br><br><em>"All grown-ups were once children — although few of them remember it."</em></p>
+    <a href="desertp.html" class="btn-start"> ✦ Your story begins now ✦</a>
+  </div>
+</div>
+
+
+<!-- ── MUSIC PLAYER ── -->
+<div class="music-section">
+  <p class="music-label">🎶 Hans Zimmer · Ascending 🎶</p>
+  <audio id="site-audio" controls autoplay loop>
+    <source src="Hans_Zimmer_Richard_Harvey_-_Ascending_(SkySound.cc).mp3" type="audio/mpeg">
+  </audio>
+</div>
+<style>
+  
+.music-section {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  text-align: center;
+  padding: 10px 16px 12px;
+  background: rgba(10, 6, 20, 0.52);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+}
+.music-label {
+  margin: 0 0 8px 0;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 220, 120, 0.6);
+  font-family: inherit;
+}
+#site-audio {
+  display: block;
+  width: 200px;
+  height: 32px;
+  filter: invert(1) sepia(1) saturate(0.4) hue-rotate(10deg) brightness(0.75);
+  opacity: 0.85;
+}
+</style>
+<script>
+(function(){
+  var audio = document.getElementById("site-audio");
+  var GROUP = "ascending";
+  audio.volume = 0.5;
+  var sg = sessionStorage.getItem("audioGroup");
+  var st = parseFloat(sessionStorage.getItem("audioTime") || "0");
+  if(sg === GROUP && st > 0) audio.currentTime = st;
+  setInterval(function(){
+    if(!audio.paused){
+      sessionStorage.setItem("audioGroup", GROUP);
+      sessionStorage.setItem("audioTime", audio.currentTime);
+    }
+  }, 500);
+  audio.play().catch(function(){});
+  document.addEventListener("click", function(){ audio.play().catch(function(){}); }, {once:true});
+})();
+</script>
+</body>
+</html>

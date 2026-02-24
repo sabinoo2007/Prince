@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet IV: The Businessman — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #counting { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE: The Businessman ── -->
+<section class="scene bg-greed" id="counting">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div><div class="shoot"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot cosmos"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag">Planet IV · The Sin of Greed</p>
+    <h2 class="cosmos-title">The Businessman</h2>
+
+      <img src="ScreenRecording_02-18-2026 16.gif" width="400" alt="Cosmos">
+      
+    <p class="narration" style="color:var(--pale-blue);">The Businessman is counting numbers when you arrive. He barely looks up. Click, click, click — his pen races like a heartbeat as he counts stars. To help him answer to this:</p>
+    <div class="cosmos-quote"> "If I have 100 stars and I give you 10% of them, but in doing so, I forget to look at the sky for 10 years... what is the final sum of my wealth?"
+</div>
+
+    <!-- Falling stars animation -->
+    <div class="falling-stars">
+      <div class="fstar"></div><div class="fstar"></div><div class="fstar"></div>
+      <div class="fstar"></div><div class="fstar"></div><div class="fstar"></div>
+      <div class="fstar"></div><div class="fstar"></div>
+    </div>
+    <p style="color:rgba(200,216,255,.5);font-style:italic;font-size:.85rem;margin-bottom:12px;">You must show him that stars are meant to be seen, not just owned</p>
+    <div class="choices">
+      <a href="#loss-greed" class="btn btn-cosmos">A) 90 stars. </a>
+      <a href="#loss-greed" class="btn btn-cosmos">B) Infinity. </a>
+      <a href="planet5P.html" class="btn btn-cosmos">C) Zero. </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOSS: Consumed by numbers ── -->
+<section class="scene bg-loss" id="loss-greed">
+  <div class="inner">
+    <span class="icon-big">🔢</span>
+    <p class="loss-banner">❌ Consumed by Numbers</p>
+    <p class="narration">He agreed with you. You both sat counting. The stars above continued to shine — indifferent to being owned. You forgot the difference between possessing something and caring for it.</p>
+    <a href="#counting" class="btn-retry">↺ Try Again — The Businessman's Planet</a>
+  </div>
+</section>
+
+
+
+<!-- ── MUSIC PLAYER ── -->
+<div class="music-section">
+  <p class="music-label">🎶 Hans Zimmer · Draw Me A Sheep 🎶</p>
+  <audio id="site-audio" controls autoplay loop>
+    <source src="Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep_(SkySound.cc).mp3" type="audio/mpeg">
+  </audio>
+</div>
+<style>
+.music-section{position:fixed;bottom:20px;right:20px;z-index:9999;text-align:center;padding:10px 16px 12px;background:rgba(10,6,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.35);}
+.music-label{margin:0 0 8px 0;font-size:10px;letter-spacing:.1em;color:rgba(255,220,120,.6);font-family:inherit;}
+#site-audio{display:block;width:200px;height:32px;filter:invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(.75);opacity:.85;}
+</style>
+<script>
+(function(){
+  var audio=document.getElementById("site-audio");
+  var GROUP="sheep";
+  audio.volume=0.5;
+  var sg=sessionStorage.getItem("audioGroup");
+  var st=parseFloat(sessionStorage.getItem("audioTime")||"0");
+  if(sg===GROUP&&st>0)audio.currentTime=st;
+  setInterval(function(){if(!audio.paused){sessionStorage.setItem("audioGroup",GROUP);sessionStorage.setItem("audioTime",audio.currentTime);}},500);
+  audio.play().catch(function(){});
+  document.addEventListener("click",function(){audio.play().catch(function(){});},{once:true});
+})();
+</script>
+</body>
+</html>

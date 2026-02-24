@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet V: The Lamplighter — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #lamp   { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE: The Lamplighter ── -->
+<section class="scene bg-lamp" id="lamp">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div><div class="shoot"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot cosmos"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag">Planet V · The Sin of Sloth</p>
+    <h2 class="cosmos-title">The Lamplighter</h2>
+     <img src="ScreenRecording_47_1.gif" width="400" alt="Cosmos">
+
+
+    <p class="narration" style="color:var(--pale-blue);">He lights the lamp — night falls — he puts it out — the sun rises — he lights it again. Every minute. Endlessly. He follows orders he no longer understands, too tired to think, too faithful to stop.</p>
+    <div class="cosmos-quote">"Orders are orders. What else can I do?"</div>
+    <p class="narration" style="color:var(--pale-blue);">Help him redesign the system. What do you say?</p>
+
+    <div class="choices">
+      <a href="#loss-stop"  class="btn btn-cosmos">A) "I will take your place while you rest. You don't have to do this anymore."</a>
+      <a href="planet6P.html" class="btn btn-cosmos">B) "Let's think together — what if we created a timer that lights and dims automatically?"</a>
+      <a href="#loss-leave" class="btn btn-cosmos">C) Just walk away and let the world go dark; it’s not your problem. </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOSS: Irresponsibility ── -->
+<section class="scene bg-loss" id="loss-stop">
+  <div class="inner">
+    <span class="icon-big">💤</span>
+    <p class="loss-banner">❌ The Robot’s Choice</p>
+    <p class="narration">The lamplighter sat down. The lamp went out. The planet fell into eternal dark. You forgot that care is not the same as blind obedience.</p>
+    <a href="#lamp" class="btn-retry">↺ Try Again — The Lamplighter</a>
+  </div>
+</section>
+
+<!-- ── LOSS: Indifference ── -->
+<section class="scene bg-loss" id="loss-leave">
+  <div class="inner">
+    <span class="icon-big">🚶</span>
+    <p class="loss-banner">❌ Indifference</p>
+    <p class="narration">You walked away. The lamplighter watched you go, then returned to his mechanical rhythm. Nothing changed. Nothing grew. Indifference is the opposite of love — not hatred.</p>
+    <div class="loss-quote">"He is the only one who does not seem ridiculous to me. Perhaps it is because he is thinking of something besides himself."</div>
+    <a href="#lamp" class="btn-retry">↺ Try Again — The Lamplighter</a>
+  </div>
+</section>
+
+
+
+<!-- ── MUSIC PLAYER ── -->
+<div class="music-section">
+  <p class="music-label">🎶 Hans Zimmer · Escape 🎶</p>
+  <audio id="site-audio" controls autoplay loop>
+    <source src="Hans_Zimmer_Richard_Harvey_-_Escape_(TheMP3.Info).mp3" type="audio/mpeg">
+  </audio>
+</div>
+<style>
+.music-section{position:fixed;bottom:20px;right:20px;z-index:9999;text-align:center;padding:10px 16px 12px;background:rgba(10,6,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.35);}
+.music-label{margin:0 0 8px 0;font-size:10px;letter-spacing:.1em;color:rgba(255,220,120,.6);font-family:inherit;}
+#site-audio{display:block;width:200px;height:32px;filter:invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(.75);opacity:.85;}
+</style>
+<script>
+(function(){
+  var audio=document.getElementById("site-audio");
+  var GROUP="escape";
+  audio.volume=0.5;
+  var sg=sessionStorage.getItem("audioGroup");
+  var st=parseFloat(sessionStorage.getItem("audioTime")||"0");
+  if(sg===GROUP&&st>0)audio.currentTime=st;
+  setInterval(function(){if(!audio.paused){sessionStorage.setItem("audioGroup",GROUP);sessionStorage.setItem("audioTime",audio.currentTime);}},500);
+  audio.play().catch(function(){});
+  document.addEventListener("click",function(){audio.play().catch(function(){});},{once:true});
+})();
+</script>
+</body>
+</html>

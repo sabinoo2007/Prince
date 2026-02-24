@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet III: The Tippler — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #riddle { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE 1: The Riddle ── -->
+<section class="scene bg-tippler" id="riddle">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div><div class="shoot"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot cosmos"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag">Planet III · The Sin of Gluttony</p>
+    <h2 class="cosmos-title">The Tippler</h2>
+
+      
+     <img src="ScreenRecording18-2026 13-32-43_1.gif" width="400" alt="Cosmos">
+
+    <p class="narration" style="color:var(--pale-blue);">The air is thick with the smell of old corks. A man sits in silence among mountains of empty bottles. The Tippler drinks to forget the shame of drinking.</p>
+    <p class="narration" style="color:var(--pale-blue);">He poses you a riddle. Answer it:</p>
+    <div class="cosmos-quote">"What feeds on itself and grows stronger the more you hide it?"</div>
+    <div class="choices">
+      <a href="#loss-riddle" class="btn btn-cosmos">A) Fear</a>
+      <a href="#loss-riddle" class="btn btn-cosmos">B) Hunger</a>
+      <a href="#response"    class="btn btn-cosmos">C) Shame</a>
+      <a href="#loss-riddle" class="btn btn-cosmos">D) Greed</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCENE 2: Your response ── -->
+<section class="scene bg-tippler" id="response">
+  <div class="stars-layer"><div class="shoot"></div><div class="shoot"></div></div>
+  <div class="inner">
+    <p class="planet-tag">Planet III · Your Response</p>
+    <h2 class="cosmos-title" style="font-size:clamp(1.2rem,3vw,2rem);">He Looks at You</h2>
+   <img src="ScreenRecording18-2026 13-32-43_1.gif" width="400" alt="Cosmos">
+    <div class="cosmos-quote">"Yes. Shame. And yet — knowing does not stop the drinking."</div>
+    <p class="narration" style="color:var(--pale-blue);">He offers you a glass of "Mist," promising it will make the desert memories disappear. What do you do?
+</p>
+    <div class="choices">
+      <a href="#loss-drink"   class="btn btn-cosmos">A) Sit with him and share a drink.</a>
+      <a href="#loss-lecture" class="btn btn-cosmos">B) Lecture him about the dangers of alcohol.</a>
+      <a href="planet4P.html"  class="btn btn-cosmos">C) Sit silently beside him — then ask: "What hurts?"</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOSS: Wrong riddle ── -->
+<section class="scene bg-loss" id="loss-riddle">
+  <div class="inner">
+    <span class="icon-big">🍾</span>
+    <p class="loss-banner">❌ You Forget Why You Came</p>
+    <p class="narration">The wrong answer. The tippler shook his head and poured himself another. You have not understood shame — only its surface. You begin to forget why you came.</p>
+    <a href="#riddle" class="btn-retry">↺ Try Again — The Tippler's Riddle</a>
+  </div>
+</section>
+
+<!-- ── LOSS: Drank ── -->
+<section class="scene bg-loss" id="loss-drink">
+  <div class="inner">
+    <span class="icon-big">🍾</span>
+    <p class="loss-banner">❌ Lost in Forgetting</p>
+    <p class="narration">You joined him. Hours passed. Then days. You forgot the rose, the fox, the Little Prince. You forgot what you were searching for.</p>
+    <div class="loss-quote">"He is the only person I think of as ridiculous — and yet he is less ridiculous than all the rest."</div>
+    <a href="#response" class="btn-retry">↺ Try Again — Choose Compassion</a>
+  </div>
+</section>
+
+<!-- ── LOSS: Lectured ── -->
+<section class="scene bg-loss" id="loss-lecture">
+  <div class="inner">
+    <span class="icon-big">📢</span>
+    <p class="loss-banner">❌ Cold Judgment</p>
+    <p class="narration">He stopped listening after your third word. People drowning in shame do not need a lecture — they need someone brave enough to ask what hurts without flinching.</p>
+    <a href="#response" class="btn-retry">↺ Try Again — Choose Silence First</a>
+  </div>
+</section>
+
+
+
+<!-- ── MUSIC PLAYER ── -->
+<div class="music-section">
+  <p class="music-label">🎶 Hans Zimmer · Draw Me A Sheep 🎶</p>
+  <audio id="site-audio" controls autoplay loop>
+    <source src="Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep_(SkySound.cc).mp3" type="audio/mpeg">
+  </audio>
+</div>
+<style>
+.music-section{position:fixed;bottom:20px;right:20px;z-index:9999;text-align:center;padding:10px 16px 12px;background:rgba(10,6,20,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.08);border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,.35);}
+.music-label{margin:0 0 8px 0;font-size:10px;letter-spacing:.1em;color:rgba(255,220,120,.6);font-family:inherit;}
+#site-audio{display:block;width:200px;height:32px;filter:invert(1) sepia(1) saturate(.4) hue-rotate(10deg) brightness(.75);opacity:.85;}
+</style>
+<script>
+(function(){
+  var audio=document.getElementById("site-audio");
+  var GROUP="sheep";
+  audio.volume=0.5;
+  var sg=sessionStorage.getItem("audioGroup");
+  var st=parseFloat(sessionStorage.getItem("audioTime")||"0");
+  if(sg===GROUP&&st>0)audio.currentTime=st;
+  setInterval(function(){if(!audio.paused){sessionStorage.setItem("audioGroup",GROUP);sessionStorage.setItem("audioTime",audio.currentTime);}},500);
+  audio.play().catch(function(){});
+  document.addEventListener("click",function(){audio.play().catch(function(){});},{once:true});
+})();
+</script>
+</body>
+</html>

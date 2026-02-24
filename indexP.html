@@ -37,42 +37,6 @@ One day in the attic, you find your old toy airplane. Your fingers brush the chi
     <source src="Hans_Zimmer_Richard_Harvey_-_Ascending_(SkySound.cc).mp3" type="audio/mpeg">
 </audio>
 
-<script>
-(function() {
-    const audio = document.getElementById('bg-music');
-    const GROUP = 'draw';
-    
-    // Set initial volume
-    audio.volume = 0.5;
-
-    // Persistent playback logic: remember where the song was
-    const savedGroup = sessionStorage.getItem('audioGroup');
-    const savedTime = parseFloat(sessionStorage.getItem('audioTime') || '0');
-
-    if (savedGroup === GROUP && savedTime > 0) {
-        audio.currentTime = savedTime;
-    }
-
-    // Save progress every half-second
-    setInterval(function() {
-        if (!audio.paused) {
-            sessionStorage.setItem('audioGroup', GROUP);
-            sessionStorage.setItem('audioTime', audio.currentTime);
-        }
-    }, 500);
-
-    // Function to start playback
-    const startMusic = () => {
-        audio.play().catch(err => console.log("Playback waiting for interaction..."));
-    };
-
-    // Attempt autoplay immediately
-    startMusic();
-
-    // Force start on the very first click (to bypass browser blocks)
-    document.addEventListener('click', startMusic, { once: true });
-})();
-</script>
 
 </body>
 </html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Into the Cosmos — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  #cosmos-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .bg-cosmos   { background: transparent !important; }
+  .stars-layer { z-index: 2; display: none; }
+  .inner       { z-index: 10; }
+</style>
+</head>
+<body>
+
+<canvas id="cosmos-canvas"></canvas>
+
+<div class="page bg-cosmos">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div>
+    <div class="shoot"></div><div class="shoot"></div>
+  </div>
+
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <span class="icon-big">🚀</span>
+    <p class="planet-tag">✦ Into the Cosmos ✦</p>
+    <h2 class="cosmos-title">You Rise</h2>
+    <img src="ScreenRecording_02-18-2026 13-32-43_1.gif" width="400" alt="Cosmos">
+    <div class="cosmos-divider"></div>
+    <p class="narration" style="color:var(--pale-blue);">The Little Prince takes your hand. The moment your fingers touch, the desert floor liquefies into starlight. The Sahara falls away, and you are pulled into a Cosmic Portal.
+      <br><br>Six planets appear, each holding someone trapped in a flaw — a king, a vain man, a tippler, a businessman, a lamplighter, a geographer.
+      <br><br>
+    </p>
+    <div class="cosmos-quote">"You must face each one. Not to defeat them — but to overcome the flaw within yourself."</div>
+    <a href="planet1P.html" class="btn-cosmos btn" style="display:inline-block;margin-top:14px;padding:16px 38px;border-radius:50px;letter-spacing:.12em;font-family:'Cinzel Decorative',serif;font-size:1rem;">Begin the Trials ✦</a>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('cosmos-canvas');
+const ctx    = canvas.getContext('2d');
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+  buildStars();
+}
+window.addEventListener('resize', resize);
+
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+/* ─────────────────────────────────────
+   BACKGROUND
+   Dark purple-navy matching the video
+───────────────────────────────────── */
+function drawBg() {
+  const bg = ctx.createRadialGradient(
+    canvas.width * 0.5, canvas.height * 0.42, 0,
+    canvas.width * 0.5, canvas.height * 0.5,  canvas.width * 0.9
+  );
+  bg.addColorStop(0,   '#0a0d2e');
+  bg.addColorStop(0.55,'#080c26');
+  bg.addColorStop(1,   '#04061a');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+/* ─────────────────────────────────────
+   STARS
+   Fixed positions. Each star has its
+   own independent random twinkle timer:
+   it picks a target alpha, lerps toward
+   it quickly, then picks a new one.
+   Some stay dim a long time, then flash —
+   exactly like the video.
+───────────────────────────────────── */
+const stars = [];
+const NUM_STARS = 200;
+
+function makeStar(i) {
+  return {
+    x:       rnd(0, canvas.width),
+    y:       rnd(0, canvas.height),
+    r:       rnd(0.5, 1.9),
+    alpha:   0,
+    target:  rnd(0.0, 0.9),
+    // how fast this star changes brightness (varies a lot — some flash, some lazy)
+    rate:    rnd(0.01, 0.07),
+    // pause counter: star holds its current brightness for a random number of frames
+    hold:    Math.floor(rnd(10, 120)),
+    holdMax: Math.floor(rnd(10, 120)),
+  };
+}
+
+function buildStars() {
+  stars.length = 0;
+  for (let i = 0; i < NUM_STARS; i++) stars.push(makeStar(i));
+}
+
+function updateAndDrawStars() {
+  stars.forEach(s => {
+    // Count down hold timer
+    if (s.hold > 0) {
+      s.hold--;
+    } else {
+      // Move toward target
+      s.alpha += (s.target - s.alpha) * s.rate;
+
+      // When close enough, pick new target + new hold duration
+      if (Math.abs(s.alpha - s.target) < 0.02) {
+        s.target  = rnd(0.0, 1.0);
+        s.holdMax = Math.floor(rnd(5, 180));   // random pause before next change
+        s.hold    = s.holdMax;
+        s.rate    = rnd(0.015, 0.08);
+      }
+    }
+
+    if (s.alpha < 0.01) return; // skip invisible stars
+
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(220, 228, 255, ${s.alpha})`;
+    ctx.fill();
+
+    // Subtle glow on brighter stars
+    if (s.alpha > 0.6 && s.r > 1.2) {
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
+      const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 3);
+      g.addColorStop(0,   `rgba(200,215,255,${s.alpha * 0.3})`);
+      g.addColorStop(1,   `rgba(200,215,255,0)`);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+  });
+}
+
+/* ─────────────────────────────────────
+   SHOOTING STREAKS
+   Horizontal, thin, white, slow-ish,
+   random vertical positions
+───────────────────────────────────── */
+const streaks = [];
+let nextStreakIn = rnd(1500, 3000); // ms until next spawn
+let lastTime = 0;
+
+function spawnStreak() {
+  streaks.push({
+    x:     -rnd(60, 160),               // start off-screen left
+    y:     rnd(0.05, 0.92) * canvas.height,
+    len:   rnd(50, 140),
+    speed: rnd(1.8, 4.5),
+    alpha: rnd(0.45, 0.85),
+    w:     rnd(0.6, 1.4),
+  });
+}
+
+function drawStreaks(dt) {
+  nextStreakIn -= dt;
+  if (nextStreakIn <= 0) {
+    spawnStreak();
+    nextStreakIn = rnd(1200, 3200);
+  }
+
+  for (let i = streaks.length - 1; i >= 0; i--) {
+    const s = streaks[i];
+    s.x += s.speed;
+
+    if (s.x > canvas.width + s.len) {
+      streaks.splice(i, 1);
+      continue;
+    }
+
+    // Fade based on horizontal progress across screen
+    const mid    = s.x + s.len / 2;
+    const prog   = mid / canvas.width;
+    const fade   = prog < 0.08 ? prog / 0.08
+                 : prog > 0.88 ? (1 - prog) / 0.12
+                 : 1;
+
+    const grad = ctx.createLinearGradient(s.x, s.y, s.x + s.len, s.y);
+    grad.addColorStop(0,   `rgba(255,255,255,0)`);
+    grad.addColorStop(0.25,`rgba(255,255,255,${s.alpha * fade})`);
+    grad.addColorStop(0.75,`rgba(255,255,255,${s.alpha * fade})`);
+    grad.addColorStop(1,   `rgba(255,255,255,0)`);
+
+    ctx.beginPath();
+    ctx.moveTo(s.x, s.y);
+    ctx.lineTo(s.x + s.len, s.y);
+    ctx.strokeStyle = grad;
+    ctx.lineWidth   = s.w;
+    ctx.stroke();
+  }
+}
+
+/* ─────────────────────────────────────
+   MAIN LOOP
+───────────────────────────────────── */
+resize(); // init canvas + stars
+
+let prevTime = performance.now();
+
+function animate(now) {
+  const dt = now - prevTime;
+  prevTime = now;
+
+  drawBg();
+  updateAndDrawStars();
+  drawStreaks(dt);
+
+  requestAnimationFrame(animate);
+}
+requestAnimationFrame(animate);
+</script>
+
+<script>
+(function() {
+  var TRACK = 'sonic_audio.wav';
+  var GROUP = 'sonic';
+  var audio = document.createElement('audio');
+  audio.src = TRACK;
+  audio.loop = true;
+  audio.volume = 0.5;
+  var savedGroup = sessionStorage.getItem('audioGroup');
+  var savedTime  = parseFloat(sessionStorage.getItem('audioTime') || '0');
+  if (savedGroup === GROUP && savedTime > 0) audio.currentTime = savedTime;
+  setInterval(function() {
+    sessionStorage.setItem('audioGroup', GROUP);
+    sessionStorage.setItem('audioTime', audio.currentTime);
+  }, 500);
+  var play = function() { audio.play().catch(function(){}); };
+  play();
+  document.addEventListener('click', play, { once: true });
+})();
+</script>
+</body>
+</html>

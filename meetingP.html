@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The First Meeting — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #meeting { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE: THE MEETING (default) ── -->
+  <div class="petals">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag">✨ The First Meeting</p>
+    <h2 class="game-title" style="font-size:clamp(1.8rem,5vw,3.5rem);">A Small Voice</h2>
+ <img src="ScreenRecording_02-18-2026 13-11-04_1.gif" width="400" alt="Valentine's Day">
+
+    <p class="narration">You smile at the boa. Suddenly, a golden-haired child stands before you. He does not explain himself. He only asks, in a voice quiet as starlight:</p>
+    <div class="quote">"If something is invisible, does it mean it does not exist?"</div>
+    <p class="narration">How do you answer?</p>
+
+    <div class="choices">
+      <a href="#loss-rational"   class="btn">"If I can't measure it, it isn't real."</a>
+      <a href="cosmos-gatep.html" class="btn">"Some things are felt, not seen."</a>
+      <a href="#loss-vanity-int" class="btn">"Define 'exist' first — philosophically speaking."</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCENE: LOSS — Rational Pride ── -->
+<section class="scene bg-loss" id="loss-rational">
+  <div class="inner">
+    <span class="icon-big">📏</span>
+    <p class="loss-banner">❌ Rational Pride</p>
+    <p class="narration">The Little Prince nods — politely, sadly — and turns away. He has met many grown-ups like you. Logic is useful. But it cannot measure love, or loneliness, or the sound a star makes when you laugh beside it.</p>
+    <div class="loss-quote">"It is only with the heart that one can see rightly."</div>
+    <a href="#meeting" class="btn-retry">↺ Try Again — Open Your Heart</a>
+  </div>
+</section>
+
+<!-- ── SCENE: LOSS — Intellectual Vanity ── -->
+<section class="scene bg-loss" id="loss-vanity-int">
+  <div class="inner">
+    <span class="icon-big">📚</span>
+    <p class="loss-banner">❌ Intellectual Vanity</p>
+    <p class="narration">The child waited while you philosophized. Then he picked a flower and walked away. Some questions are not meant to be dissected. They are meant to be lived.</p>
+    <a href="#meeting" class="btn-retry">↺ Try Again — Speak Simply</a>
+  </div>
+</section>
+
+<script>
+(function() {
+  var TRACK = 'Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep__SkySound_cc_.mp3';
+  var GROUP = 'draw';
+  var audio = document.createElement('audio');
+  audio.src = TRACK;
+  audio.loop = true;
+  audio.volume = 0.5;
+  var savedGroup = sessionStorage.getItem('audioGroup');
+  var savedTime  = parseFloat(sessionStorage.getItem('audioTime') || '0');
+  if (savedGroup === GROUP && savedTime > 0) audio.currentTime = savedTime;
+  setInterval(function() {
+    sessionStorage.setItem('audioGroup', GROUP);
+    sessionStorage.setItem('audioTime', audio.currentTime);
+  }, 500);
+  var play = function() { audio.play().catch(function(){}); };
+  play();
+  document.addEventListener('click', play, { once: true });
+})();
+</script>
+</body>
+</html>

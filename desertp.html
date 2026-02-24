@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Desert — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  /* Within-page scene switching via :target */
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #crash  { display:flex; } /* default scene */
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE: CRASH SITE (default) ── -->
+<div class="bg-desert" id="title">
+    
+  <div class="petals">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+      <div class="pdot"></div><div class="pdot"></div><div class="pdot"></div>
+      <div class="pdot"></div><div class="pdot"></div>
+    </div>
+    <p class="planet-tag"> The Desert · Crash Site</p>
+    <h2 class="game-title" style="font-size:clamp(1.8rem,5vw,3.5rem);">You wake in a silent desert</h2>
+
+     <div class="divider"></div>
+     <img src="ScreenRecording_02-18-2026 13-21-00_1.gif" width="400" alt="Valentine's Day">
+    <p class="narration"> Your airplane is no longer a toy but a broken skeleton of hot metal. In the crushing quiet, every “important” thing you carried feels like a heavy stone in your pocket. <br><br>To survive the night, you must decide what to shield from the cold.</p>
+
+    <div class="quote"> What do you protect first? </div>
+
+    <div class="choices">
+      <a href="#loss-adult"       class="btn">A) Your Strength.</a>
+      <a href="drawing.html"      class="btn">B) Your Attention.</a>
+      <a href="#loss-overcomplex" class="btn">C) Your Logic.</a>
+      <a href="#loss-fear" class="btn">D) Your Fear.</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCENE: LOSS ── -->
+<section class="scene bg-loss" id="loss-adult">
+  <div class="inner">
+    <span class="icon-big">🧊</span>
+    <p class="loss-banner">❌ The Frozen Soul </p>
+    <p class="planet-tag" style="color:#ff9090;">Loss Condition</p>
+
+    <p class="narration">You mistook survival for merely existing. By coiling into yourself to save your strength, you froze the very warmth that could have guided you. You survived the night, but you woke up a statue of salt.</p>
+    
+    <a href="#crash" class="btn-retry">↺ Try Again — Look Deeper</a>
+  </div>
+</section>
+
+<!-- ── SCENE: LOSS  ── -->
+<section class="scene bg-loss" id="loss-overcomplex">
+  <div class="inner">
+    <span class="icon-big">📏</span>
+    <p class="loss-banner">❌ The Mirage of Math </p>
+    <p class="planet-tag" style="color:#ff9090;">Loss Condition</p>
+    <p class="narration">You trusted only the numbers you remembered. But the desert isn't a geometry problem. While you were calculating the distance to an oasis that didn't exist, the Little Prince walked right past you, and you didn't even look up from your equations.</p>
+    <div class="loss-quote">"Grown-ups love figures... they never ask you about essential matters."</div>
+    <a href="#crash" class="btn-retry">↺ Try Again — Simplify</a>
+  </div>
+</section>
+
+<!-- ── SCENE: LOSS  ── -->
+<section class="scene bg-loss" id="loss-fear">
+<div class="inner">
+<span class="icon-big">👣</span>
+<p class="loss-banner">❌ The Panic Loop</p>
+<p class="planet-tag" style="color:#ff9090;">Loss Condition</p>
+<p class="narration">You believed that movement was the same as progress. You ran until your lungs burned, but you only ran in circles. You were so busy screaming into the void that you never heard the silver-bell voice of the child standing right behind you.</p>
+<div class="loss-quote">"Panic is just a faster way to get lost."</div>
+<a href="#first-night" class="btn-retry">↺ Try Again — Be Still</a>
+</div>
+</section>
+
+
+<script>
+(function() {
+  var TRACK = 'Hans_Zimmer_Richard_Harvey_-_Draw_Me_A_Sheep__SkySound_cc_.mp3';
+  var GROUP = 'draw';
+  var audio = document.createElement('audio');
+  audio.src = TRACK;
+  audio.loop = true;
+  audio.volume = 0.5;
+  var savedGroup = sessionStorage.getItem('audioGroup');
+  var savedTime  = parseFloat(sessionStorage.getItem('audioTime') || '0');
+  if (savedGroup === GROUP && savedTime > 0) audio.currentTime = savedTime;
+  setInterval(function() {
+    sessionStorage.setItem('audioGroup', GROUP);
+    sessionStorage.setItem('audioTime', audio.currentTime);
+  }, 500);
+  var play = function() { audio.play().catch(function(){}); };
+  play();
+  document.addEventListener('click', play, { once: true });
+})();
+</script>
+</body>
+</html>

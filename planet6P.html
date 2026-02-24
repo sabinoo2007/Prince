@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Planet VI: The Geographer — The Seventh Planet</title>
+<link rel="stylesheet" href="sharedP.css">
+<style>
+  .scene { display:none; min-height:100vh; position:relative; overflow:hidden; }
+  #geo-riddle { display:flex; }
+  .scene:target { display:flex; }
+</style>
+</head>
+<body>
+
+<!-- ── SCENE 1: The Riddle of Love ── -->
+<section class="scene bg-geo" id="geo-riddle">
+  <div class="stars-layer">
+    <div class="shoot"></div><div class="shoot"></div><div class="shoot"></div>
+  </div>
+  <div class="inner">
+    <div class="progress">
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot done"></div>
+      <div class="pdot done"></div><div class="pdot done"></div><div class="pdot cosmos"></div>
+    </div>
+    <p class="planet-tag">Planet VI · The Geographer</p>
+    <h2 class="cosmos-title">Anger &amp; Lust for Knowledge</h2>
+     <img src="ScreenRecording_51_1.gif" width="400" alt="Cosmos">
+    <p class="narration" style="color:var(--pale-blue);">You arrive on the final planet. A man maps mountains and oceans he has never seen, obsessed with perfect knowledge.
+You feel a flicker of envy. Here, everything is certain. Stay, and you would never feel lost again.</p>
+    <p class="narration" style="color:var(--pale-blue);">The Geographer senses your hunger. He poses his first riddle to see if you are worthy of a seat in his silent library:</p>
+    <div class="cosmos-quote">"What can be possessed only by letting it go?"</div>
+    <div class="choices">
+      <a href="#loss-geo-wrong" class="btn btn-cosmos">A) Power</a>
+      <a href="#loss-geo-wrong" class="btn btn-cosmos">B) Knowledge</a>
+      <a href="#geo-earth"      class="btn btn-cosmos">C) Love</a>
+      <a href="#loss-geo-wrong" class="btn btn-cosmos">D) Time</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SCENE 2: What is most important on Earth? ── -->
+<section class="scene bg-geo" id="geo-earth">
+  <div class="stars-layer"><div class="shoot"></div><div class="shoot"></div></div>
+  <div class="inner">
+    <p class="planet-tag">Planet VI · Final Question</p>
+    <h2 class="cosmos-title" style="font-size:clamp(1.2rem,3vw,2rem);">"What is most important on Earth? Tell me, traveler."</h2>
+     <img src="ScreenRecording_51_1.gif" width="400" alt="Cosmos">
+    <p class="narration" style="color:var(--pale-blue);">The Geographer freezes. He slowly writes your answer into his great book with a heavy, scratching sound.</p>
+    <p class="narration" style="color:var(--pale-blue);"> He leans in, posing a second question—not as a test, but as a plea from a man who has forgotten how to live:</p>
+    <div class="cosmos-quote">"Tell me, traveler. Of everything on Earth — what is truly essential?"</div>
+    <div class="choices">
+      <a href="#loss-power"     class="btn btn-cosmos">A) Power — the ability to shape events and people.</a>
+      <a href="#loss-mountains" class="btn btn-cosmos">B) Mountains — the permanence of great things.</a>
+      <a href="finalP.html"      class="btn btn-cosmos">C) One fragile rose — something that needs you, and whom you need.</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOSS: Wrong riddle answer ── -->
+<section class="scene bg-loss" id="loss-geo-wrong">
+  <div class="inner">
+    <span class="icon-big">🗺️</span>
+    <p class="loss-banner">❌ Incomplete Understanding</p>
+    <p class="narration">The geographer shook his head. He has heard that answer in many books. You have not reached the core of things.</p>
+    <a href="#geo-riddle" class="btn-retry">↺ Try Again — The Geographer</a>
+  </div>
+</section>
+
+<!-- ── LOSS: Power ── -->
+<section class="scene bg-loss" id="loss-power">
+  <div class="inner">
+    <span class="icon-big">⚔️</span>
+    <p class="loss-banner">❌ Superficial Knowledge</p>
+    <p class="narration">Power. The geographer wrote it down — with a sad smile. Power ends. The things that truly matter are those that made you feel responsible for them.</p>
+    <div class="loss-quote">"It is the time you have spent with your rose that makes your rose so important."</div>
+    <a href="#geo-earth" class="btn-retry">↺ Try Again — Think Deeper</a>
+  </div>
+</section>
+
+<!-- ── LOSS: Mountains (partial) ── -->
+<section class="scene bg-loss" id="loss-mountains">
+  <div class="inner">
+    <span class="icon-big">⛰️</span>
+    <p class="loss-banner">⚠️ Partial Understanding</p>
+    <p class="narration">Almost. Mountains are real and enduring. But they do not need you. The essential things are those which are fragile — and which chose you, and you chose them.</p>
+    <a href="#geo-earth" class="btn-retry">↺ Look Again — What is Fragile?</a>
+  </div>
+</section>
+
+<script>
+(function() {
+  var TRACK = 'Hans_Zimmer_Richard_Harvey_-_Escape__TheMP3_Info_.mp3';
+  var GROUP = 'escape';
+  var audio = document.createElement('audio');
+  audio.src = TRACK;
+  audio.loop = true;
+  audio.volume = 0.5;
+  var savedGroup = sessionStorage.getItem('audioGroup');
+  var savedTime  = parseFloat(sessionStorage.getItem('audioTime') || '0');
+  if (savedGroup === GROUP && savedTime > 0) audio.currentTime = savedTime;
+  setInterval(function() {
+    sessionStorage.setItem('audioGroup', GROUP);
+    sessionStorage.setItem('audioTime', audio.currentTime);
+  }, 500);
+  var play = function() { audio.play().catch(function(){}); };
+  play();
+  document.addEventListener('click', play, { once: true });
+})();
+</script>
+</body>
+</html>
